@@ -1,0 +1,27 @@
+/* The design tokens come from @shaharia-lab/agento-code, the published design
+   system, so there is one definition of the brand rather than one per site.
+
+   The package's own entry point, styles.css, is deliberately not used: its
+   first line pulls the fonts from Google Fonts, and this theme self-hosts them
+   (fonts.css). Importing the token files one by one keeps that true.
+
+   Light and dark: colors.css follows `prefers-color-scheme` by default and
+   `:root[data-theme="light" | "dark"]` once a choice is made. Starlight's
+   toggle sets exactly that attribute, so it drives these tokens for free. */
+@import '@shaharia-lab/agento-code/tokens/colors.css';
+@import '@shaharia-lab/agento-code/tokens/accents.css';
+@import '@shaharia-lab/agento-code/tokens/typography.css';
+@import '@shaharia-lab/agento-code/tokens/space.css';
+@import '@shaharia-lab/agento-code/tokens/borders.css';
+@import '@shaharia-lab/agento-code/tokens/motion.css';
+@import '@shaharia-lab/agento-code/base.css';
+
+/* @fontsource-variable registers the variable faces as "Newsreader Variable"
+   and "JetBrains Mono Variable", while the typography tokens name the plain
+   families. Without this, headings in --font-sub and all code silently fall
+   back to Georgia and the system monospace. */
+:root {
+  --font-sub: "Newsreader Variable", "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-serif-text: "Newsreader Variable", "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}

@@ -1,0 +1,19 @@
+---
+/**
+ * The docs title with the page actions row under it:
+ *
+ *   [Copy page] [Open ▾ ChatGPT / Claude / View as Markdown] [Edit on GitHub]
+ *
+ * The first two come from starlight-page-actions' own title override, used
+ * as-is so its copy script and Markdown twins keep working. It does not export
+ * its button row on its own, so the row is laid out from out here (see
+ * styles/page-actions.css) and Edit on GitHub joins the end of it.
+ */
+import PageActionsTitle from 'starlight-page-actions/overrides/PageTitle.astro';
+import EditOnGitHub from './EditOnGitHub.astro';
+---
+
+<div class="sk-title">
+  <PageActionsTitle />
+  <EditOnGitHub />
+</div>

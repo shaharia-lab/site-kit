@@ -1,0 +1,13 @@
+---
+/**
+ * The title override for sites that turn page actions off: Starlight's own
+ * title, plus Edit on GitHub. A separate file rather than a flag, because the
+ * page-actions title imports a virtual module that only exists when that
+ * plugin is registered.
+ */
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import EditOnGitHub from './EditOnGitHub.astro';
+---
+
+<Default />
+<EditOnGitHub />

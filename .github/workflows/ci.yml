@@ -1,0 +1,46 @@
+name: CI
+
+# Actions are pinned to full commit SHAs because the shaharia-lab org enforces
+# sha_pinning_required; a version tag such as @v7 is rejected before the run
+# starts. Keep the trailing "# vX.Y.Z" comment in step with the SHA.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # No colour literals outside themes/, then types for the kit and demo.
+      - run: npm run check
+
+      # Unit tests, then a real build of the demo site with assertions on its
+      # output: Markdown twins, llms.txt, page actions, edit links, theme CSS.
+      - run: npm test
+
+      # Every accent variant of the built-in theme must build.
+      - name: Build each accent
+        run: |
+          for accent in forest saffron ink; do
+            SITE_KIT_ACCENT=$accent npm run build
+          done
+
+      # What would be published, so a missing file shows up in review.
+      - run: npm pack --dry-run -w @shaharia-lab/site-kit

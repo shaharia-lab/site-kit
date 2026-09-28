@@ -1,0 +1,19 @@
+---
+/**
+ * "Edit on GitHub", one of the page action buttons. It renders only when the
+ * page has an edit URL; see middleware.ts for how that URL is chosen. Styles
+ * live in styles/page-actions.css, shared with the rest of the row.
+ */
+import { Icon } from '@astrojs/starlight/components';
+
+const { editUrl } = Astro.locals.starlightRoute;
+---
+
+{
+  editUrl && (
+    <a class="sk-action" href={editUrl.href} target="_blank" rel="noopener">
+      <Icon name="github" size="1rem" />
+      <span>Edit on GitHub</span>
+    </a>
+  )
+}
