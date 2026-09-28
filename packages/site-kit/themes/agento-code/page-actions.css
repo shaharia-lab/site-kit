@@ -1,0 +1,48 @@
+/* Page actions in the agento-code look: every button in the row (the plugin's
+   Copy page and Open, and the kit's Edit on GitHub) as one hard-bordered mono
+   control, and the Open menu as a flat ink-bordered sheet.
+
+   The plugin's styles are Astro-scoped, and its menu is keyed by an id, so the
+   selectors are anchored on `.sk-title` to outrank them without !important. */
+
+.sk-title .action-button,
+.sk-title .sk-action {
+  height: 30px;
+  padding: 0 12px;
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--raised);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sk-title .action-button:hover,
+.sk-title .sk-action:hover {
+  background: var(--accent-tint);
+  color: var(--ink);
+}
+.sk-title .action-button:focus-visible,
+.sk-title .sk-action:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sk-title #dropdown-menu {
+  border: var(--bw) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--offset);
+  width: 230px;
+}
+.sk-title .dropdown-item {
+  border-radius: 0;
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.sk-title .dropdown-item:hover {
+  background: var(--sunken);
+  color: var(--ink);
+}

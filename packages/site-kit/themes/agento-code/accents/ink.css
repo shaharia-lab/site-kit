@@ -1,0 +1,10 @@
+/* Accent: ink. No accent colour; near-black does every job. The same four
+   assignments as the design system's `:root[data-accent="ink"]` block, which
+   Starlight's document cannot reach because it never sets data-accent. They
+   are expressed in ink, sunken and paper, so they invert with the theme. */
+:root {
+  --accent: var(--ink);
+  --accent-tint: var(--sunken);
+  --accent-deep: var(--ink);
+  --on-accent: var(--paper);
+}

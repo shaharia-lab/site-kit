@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # Astro, Starlight and the community plugins move together, so their bumps
+  # arrive as one PR that CI can prove against the demo build.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      astro:
+        patterns: ['astro', '@astrojs/*', 'starlight-*']
+      fonts:
+        patterns: ['@fontsource/*', '@fontsource-variable/*']
+      dev:
+        dependency-type: development
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

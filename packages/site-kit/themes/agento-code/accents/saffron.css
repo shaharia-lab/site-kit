@@ -1,0 +1,11 @@
+/* Accent: saffron. The same assignments as the design system's
+   `:root[data-accent="saffron"]` block, which Starlight's document cannot
+   reach because it never sets data-accent. Warnings move to a letterpress red,
+   as there, because saffron sits too close to the amber warn colour. */
+:root {
+  --accent: var(--accent-saffron);
+  --accent-tint: var(--accent-saffron-tint);
+  --accent-deep: var(--accent-saffron-deep);
+  --on-accent: var(--on-accent-saffron);
+  --warn: #B3232B;
+}

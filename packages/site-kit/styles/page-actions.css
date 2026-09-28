@@ -1,0 +1,42 @@
+/* Page actions, theme-neutral base.
+
+   The row under a docs title mixes buttons from starlight-page-actions (Copy
+   page, the Open menu) with the kit's own (Edit on GitHub). This file makes the
+   kit's buttons match the plugin's defaults, using only Starlight's `--sl-*`
+   properties, so the row looks like one control with no theme at all. A theme
+   then restyles all of them at once through the shared selector below. */
+
+.sk-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sk-title > h1 {
+  flex-basis: 100%;
+}
+/* The plugin stacks its buttons in a column; the kit puts the row on one line. */
+.sk-title .actions-container {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.sk-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.25rem;
+  background-color: var(--sl-color-gray-6);
+  color: var(--sl-color-white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.sk-action:hover {
+  background-color: var(--sl-color-gray-5);
+}

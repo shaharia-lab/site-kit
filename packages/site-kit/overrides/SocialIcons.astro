@@ -1,0 +1,25 @@
+---
+/**
+ * Starlight's social icons, with a Star button in front of them.
+ *
+ * Search traffic lands on a docs page far more often than on the landing page,
+ * and a bare GitHub glyph says nothing about what clicking it does. This adds
+ * one element to the slot Starlight puts at the right of its header, rather
+ * than overriding the header and owning its responsive layout, search box and
+ * sidebar toggle.
+ */
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import config from 'virtual:site-kit/config';
+
+const repo = config.repo!;
+// Below this the number weakens the ask rather than strengthening it.
+const stars =
+  repo.stars !== null && repo.stars >= 100
+    ? new Intl.NumberFormat('en', { notation: 'compact' }).format(repo.stars)
+    : null;
+---
+
+<a class="sk-star" href={repo.url}>
+  <span aria-hidden="true">&#9733;</span> Star{stars && <span class="sk-star__n">{stars}</span>}
+</a>
+<Default><slot /></Default>

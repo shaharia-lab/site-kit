@@ -1,0 +1,8 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  // The kit's own sources are type-checked from here, against a real Starlight
+  // site, because that is the only place its .astro files and virtual modules
+  // resolve the way they do in production.
+  "include": [".astro/types.d.ts", "**/*", "../packages/site-kit/**/*"],
+  "exclude": ["dist", "../packages/site-kit/node_modules"]
+}
