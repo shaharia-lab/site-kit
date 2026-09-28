@@ -94,14 +94,29 @@ jobs:
         working-directory: ${{ steps.target.outputs.dir }}
         run: npm pack --dry-run
 
+      # A version already on npm is a no-op rather than a failure: npm never
+      # lets a version be published twice, and this makes re-running a release,
+      # or tagging a version that was published by hand, safe.
+      - name: Check whether this version is already published
+        id: published
+        run: |
+          if npm view "${{ steps.target.outputs.name }}@${{ steps.target.outputs.version }}" version >/dev/null 2>&1; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::${{ steps.target.outputs.name }}@${{ steps.target.outputs.version }} is already on npm; skipping publish."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to npm
-        if: ${{ github.event_name == 'push' || inputs.dry_run == false }}
+        if: ${{ steps.published.outputs.already == 'false' && (github.event_name == 'push' || inputs.dry_run == false) }}
         working-directory: ${{ steps.target.outputs.dir }}
         run: npm publish --access public
 
       - name: Summary
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+          if [ "${{ steps.published.outputs.already }}" = "true" ]; then
+            echo "\`${{ steps.target.outputs.name }}@${{ steps.target.outputs.version }}\` was already on npm; nothing published." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
             echo "Dry run only: \`${{ steps.target.outputs.name }}@${{ steps.target.outputs.version }}\` was packed but not published." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Published \`${{ steps.target.outputs.name }}@${{ steps.target.outputs.version }}\`" >> "$GITHUB_STEP_SUMMARY"
